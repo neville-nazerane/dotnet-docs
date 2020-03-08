@@ -1,0 +1,16 @@
+[Unit]
+Description=DotNet Documentations
+
+[Service]
+WorkingDirectory=#{path.www}#
+ExecStart=/usr/bin/dotnet #{path.www}#/DotnetDocs.Website.dll --urls http://localhost:#{url.port}#
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=docs
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target
