@@ -1,0 +1,31 @@
+
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: neville-nazerane/Common-Pipelines
+      endpoint: github.com_neville-nazerane
+
+
+extends:
+  template: Shared\netcore-ubuntu.yml@templates
+  parameters:
+    usePreRelease: false
+    projectPath: src/DotnetDocs.Website
+    projectName: DotnetDocs.Website
+    destDirectory: /var/www/dotnetDocs
+    port: 5025
+
+    service:
+      description: DotNet Documentations
+      identifier: dotnetdocs
+      name: kestrel-dotnetDocs
+    configs:
+      ASPNETCORE_ENVIRONMENT: Production
+
